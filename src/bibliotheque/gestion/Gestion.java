@@ -5,10 +5,7 @@ import bibliotheque.utilitaires.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Gestion {
     Scanner sc = new Scanner(System.in);
@@ -100,12 +97,45 @@ public class Gestion {
     }
 
     private void gestRestitution() {
+        Scanner sc = new Scanner(System.in);
         //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+        int i=1;
+        int choix;
+        String choix1="",etat;
+        Exemplaire ex;
+        Location l;
+        for(Exemplaire e : lex)
+        {
+            if(!e.enLocation())
+            {
+                System.out.println(i+"."+e);
+                i++;
+            }
+            System.out.println("Quel est votre exemplaire?");
+            choix=sc.nextInt();
+            ex=lex.get(choix-1);
+            ex.getLloc().get(ex.getLloc().size()-1).setDateRestitution(null);
+            while (!choix1.equalsIgnoreCase("n")||!choix1.equalsIgnoreCase("o")) {
+                System.out.println("Nouvelle état? O ou N");
+                choix1=sc.nextLine();
+                if (choix1.equalsIgnoreCase("o"))
+                {
+                    System.out.println("Quel état?");
+                    etat=sc.nextLine();
+                    ex.setDescriptionEtat(etat);
+
+                }
+            }
+
+
+        }
     }
 
     private void gestLocations() {
         int choix;
-        //TODO ne lister que les exemplaires libres et les trier par matricule
+        int i=1;
+        List<Exemplaire> extmp = new ArrayList();
+      /*  //TODO ne lister que les exemplaires libres et les trier par matricule
         choix = Utilitaire.choixListe(lex);
         if(lex.get(choix).enLocation()){
             System.out.println("exemplaire en location");
@@ -114,7 +144,20 @@ public class Gestion {
         Exemplaire ex = lex.get(choix-1);
         choix=Utilitaire.choixListe(llect);
         Lecteur lec = llect.get(choix-1);
-        lloc.add(new Location(lec,ex));
+        lloc.add(new Location(lec,ex));*/
+        for(Exemplaire e : lex)
+        {
+            if(!e.enLocation())
+            {
+                extmp.add(e);
+            }
+        }
+        Collections.sort(extmp, new ExemplaireMatriculeComparator());
+        for(Exemplaire e : extmp)
+        {
+            System.out.println(i+"."+e);
+            i++;
+        }
     }
 
     private void gestLecteurs() {
@@ -153,6 +196,7 @@ public class Gestion {
 
         //TODO attribuer exemplaire, les exemplaires sont triés par ordre de titre de l'ouvrage , empêcher doublons sur l'exemplaire
     }
+
 
     private void gestExemplaires() {
         System.out.println("matricule ");
