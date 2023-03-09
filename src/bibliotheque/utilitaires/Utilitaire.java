@@ -2,6 +2,7 @@ package bibliotheque.utilitaires;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,6 +20,20 @@ public class Utilitaire {
                 choix = sc.nextInt();
                 sc.skip("\n");
             } while(choix <1 || choix > l.size());
+        return choix;
+    }
+    public static int choixListe(HashSet l){
+
+        int i =1;
+        for(Object o :l) {
+            System.out.println((i++)+"."+o);
+        }
+        int choix;
+        do {
+            System.out.println("choix :");
+            choix = sc.nextInt();
+            sc.skip("\n");
+        } while(choix <1 || choix > l.size());
         return choix;
     }
 

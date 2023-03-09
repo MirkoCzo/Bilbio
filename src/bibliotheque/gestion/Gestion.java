@@ -254,27 +254,38 @@ public class Gestion {
                             LocalTime dureeTotale = Utilitaire.lecTime();
                             o=new CD(titre,ageMin,dp,ploc,langue,genre,code,nbrePlages,dureeTotale);
                             ;break;
-                case 3 :
+
+       */
+         /*       case 3 :
                             System.out.println("code : ");
                             code= sc.nextLong();
                             dureeTotale=Utilitaire.lecTime();
                             byte nbreBonus= sc.nextByte();
                             o=new DVD(titre,ageMin,dp,ploc,langue,genre,code,dureeTotale,nbreBonus);
                             System.out.println("autres langues");
-                            List<String> langues = new ArrayList<>(Arrays.asList("anglais","français","italien","allemand","fin"));
+                            HashSet<String> langues = new HashSet<String>();
+                            langues.add("Français");
+                            langues.add("Anglais");
+                            langues.add("Suédois");
                             do{
                                 choix=Utilitaire.choixListe(langues);
                                 if(choix==langues.size())break;
-                                ((DVD)o).getAutresLangues().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine
+                                if(o.getLangue().equalsIgnoreCase((langues.toArray(new String[0])[choix-1]))) {
+                                    ((DVD) o).getAutresLangues().add(langues.toArray(new String[0])[choix - 1]);//TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine
+                                }
+                                else System.out.println("C'est la langue d'origine");
                             }while(true);
                            System.out.println("sous-titres");
-                            do{
-                             choix=Utilitaire.choixListe(langues);
-                             if(choix==langues.size())break;
-                             ((DVD)o).getSousTitres().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set
-                             }while(true);
-                            ;break;
-            }*/
+        do{
+            choix=Utilitaire.choixListe(langues);
+            if(choix==langues.size())break;
+            if(o.getLangue().equalsIgnoreCase((langues.toArray(new String[0])[choix-1]))) {
+                ((DVD) o).getSousTitres().add(langues.toArray(new String[0])[choix - 1]);//TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine
+            }
+            else System.out.println("C'est la langue d'origine");
+        }while(true);
+
+            };break;
 
 
 
